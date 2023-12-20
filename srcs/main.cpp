@@ -6,7 +6,7 @@
 /*   By: janhan <janhan@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 14:16:18 by janhan            #+#    #+#             */
-/*   Updated: 2023/12/20 20:39:56 by janhan           ###   ########.fr       */
+/*   Updated: 2023/12/21 01:02:13 by janhan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,12 @@ int main()
 	UI sizeUpButtom(sf::Vector2f(100,100), sf::Vector2f(50, 50), std::string("size up"), sf::Color::Blue);
 	UI clearButton(sf::Vector2f(160, 100), sf::Vector2f(50, 50), "Clear", sf::Color::Red);
 
-	bool isDragging = false;
+	bool isDragging0 = false;
+	bool isDragging1 = false;
 	int num_particle = 2000; // 초기 파티클 개수
 
-	gravityPoint.push_back(GravitySource((window.getSize().x / 2.f), (window.getSize().y / 2.f), 7000));
-
+	gravityPoint.push_back(GravitySource((window.getSize().x / 3.f), (window.getSize().y / 2.f), 7000));
+	gravityPoint.push_back(GravitySource((window.getSize().x / 1.5f), (window.getSize().y / 2.f), 7000));
 	for (int i = 0; i < num_particle; i++) // 초기 파티클 색상 및 위치 설정
 	{
 		float val = (float)i / (float)num_particle;
@@ -73,7 +74,7 @@ int main()
 			if (event.type == sf::Event::Closed) window.close();
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) window.close();
 
-			if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && !isDragging)
+			if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && !isDragging0)
 			{
 				if (!sizeUpButtom.isMouseOver(window) && !gravityPoint[0].isMouseOver(window)) // 마우스 Left 클릭으로 새로운 파티클 생성
 				{
@@ -89,12 +90,21 @@ int main()
 				}
 				if (!sizeUpButtom.isMouseOver(window) && gravityPoint[0].isMouseOver(window)) // 중력 포인트 이동
 				{
-
 					if (event.type == sf::Event::MouseButtonPressed)
 					{
 						if (event.mouseButton.button == sf::Mouse::Left)
 						{
-							isDragging = true;
+							isDragging0 = true;
+						}
+					}
+				}
+				if (!sizeUpButtom.isMouseOver(window) && !gravityPoint[0].isMouseOver(window) && gravityPoint[1].isMouseOver(window))
+				{
+					if (event.type == sf::Event::MouseButtonPressed)
+					{
+						if (event.mouseButton.button == sf::Mouse::Left)
+						{
+							isDragging1 = true;
 						}
 					}
 				}
@@ -107,7 +117,8 @@ int main()
 			{
 				if (event.mouseButton.button == sf::Mouse::Left)
 				{
-					isDragging = false;
+					isDragging0 = false;
+					isDragging1 = false;
 				}
 			}
 		}
@@ -122,8 +133,10 @@ int main()
 		}
 		sizeUpButtom.draw(window); // 사이즈 업 버튼 확인
 		clearButton.draw(window);
-		if (isDragging) // 중력 포인트 드래그 드로우
+		if (isDragging0) // 중력 포인트 드래그 드로우
 			gravityPoint[0].isMouseEvent(window);
+		if (isDragging1)
+			gravityPoint[1].isMouseEvent(window);
 		for (int i = 0; i < gravityPoint.size(); i++) // 중력 포인트 드로우
 			gravityPoint[i].render(window);
 		window.display();
