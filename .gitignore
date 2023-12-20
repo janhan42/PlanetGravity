@@ -1,0 +1,4 @@
+SFML
+.DS*
+*.out
+.clangd
