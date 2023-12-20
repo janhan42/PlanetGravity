@@ -45,7 +45,7 @@ $(NAME) : $(OBJ_FILES)
 	@echo $(GREEN)"            - Complete -"$(NONE)
 
 $(OBJ_DIR)/%.o : $(SRCS_DIR)/%.cpp
-	@echo $(CURSIVE)$(YELLOW) "     - Making object files -" $(NONE)
+	@echo $(CURSIVE)$(YELLOW) "      - Making object files -" $(NONE)
 	@$(CXX) $(CXXFLAGS) -c $< -o $@
 
 clean :
