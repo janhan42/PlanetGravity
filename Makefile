@@ -6,7 +6,7 @@
 #    By: janhan <janhan@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/20 15:00:22 by janhan            #+#    #+#              #
-#    Updated: 2023/12/20 23:53:01 by janhan           ###   ########.fr        #
+#    Updated: 2023/12/21 01:35:41 by janhan           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,23 +39,22 @@ DELETELINE='\033[K;
 all : $(NAME)
 
 $(NAME) : $(OBJ_FILES)
-	@echo $(CURSIVE)$(YELLOW) "   -Making PlanetGravity Game -" $(NONE)
+	@echo $(CURSIVE)$(YELLOW) "   - Making PlanetGravity Game -" $(NONE)
 	@$(CXX) $(LDFLAGS) $^ -o $@
-	@echo $(CURSIVE)$(YELLOW) "     - Compiling $(NAME) -" $(NONE)
-	@echo $(GREEN)"      - Compiled -"$(NONE)
+	@echo $(CURSIVE)$(YELLOW) "    - Compiling $(NAME) -" $(NONE)
+	@echo $(GREEN)"            - Complete -"$(NONE)
 
 $(OBJ_DIR)/%.o : $(SRCS_DIR)/%.cpp
 	@echo $(CURSIVE)$(YELLOW) "     - Making object files -" $(NONE)
 	@$(CXX) $(CXXFLAGS) -c $< -o $@
 
-
 clean :
 	@rm -fr $(OBJ_FILES)
-	@echo $(CURSIVE)$(BLUE) "     - clean OBJ files -" $(NONE)
+	@echo $(CURSIVE)$(BLUE) "       - clean OBJ files -" $(NONE)
 
 fclean : clean
 	@rm -fr $(NAME)
-	@echo $(CURSIVE)$(PURPLE)"- clean OBJ And PlanetGravity Game file -"$(NONE)
+	@echo $(CURSIVE)$(PURPLE)"  - clean PlanetGravity Game file -"$(NONE)
 
 re	:
 	@make fclean

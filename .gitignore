@@ -2,3 +2,5 @@ SFML
 .DS*
 *.out
 .clangd
+.OBJ
+PlanetGravity
