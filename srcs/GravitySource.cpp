@@ -6,7 +6,7 @@
 /*   By: janhan <janhan@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 14:20:21 by janhan            #+#    #+#             */
-/*   Updated: 2023/12/20 19:58:59 by janhan           ###   ########.fr       */
+/*   Updated: 2023/12/21 10:18:09 by janhan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ GravitySource::GravitySource(float pos_x, float pos_y, float strength){
 	s.setPosition(pos);
 	s.setFillColor(sf::Color::White);
 	s.setRadius(15);
+	s.setOrigin(s.getRadius(), s.getRadius());
 }
 
 void GravitySource::render(sf::RenderWindow &window){
@@ -40,13 +41,19 @@ float GravitySource::get_strengeth(){
 bool GravitySource::isMouseOver(const sf::RenderWindow& window)
 {
 	sf::Vector2i mousePos = sf::Mouse::getPosition(window);
-	return (s.getGlobalBounds().contains(static_cast<float>(mousePos.x) - 15,
-											static_cast<float>(mousePos.y) - 10));
+	return (s.getGlobalBounds().contains(static_cast<float>(mousePos.x),
+											static_cast<float>(mousePos.y)));
 }
 
 void GravitySource::isMouseEvent(const sf::RenderWindow& window) {
 	pos = static_cast<sf::Vector2f>(sf::Mouse::getPosition(window));
-	pos.x -= 15;
-	pos.y -= 10;
 	s.setPosition(pos);
+}
+
+void GravitySource::drawGravityRange(sf::RenderWindow& window) const {
+    sf::CircleShape gravityRange(100);
+	gravityRange.setPosition(pos);
+	gravityRange.setOrigin(gravityRange.getRadius(), gravityRange.getRadius());
+    gravityRange.setFillColor(sf::Color(0, 128, 255, 50)); // 파란색 원
+    window.draw(gravityRange);
 }

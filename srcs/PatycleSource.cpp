@@ -6,7 +6,7 @@
 /*   By: janhan <janhan@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 14:35:26 by janhan            #+#    #+#             */
-/*   Updated: 2023/12/20 20:40:53 by janhan           ###   ########.fr       */
+/*   Updated: 2023/12/21 10:14:56 by janhan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 #include "SFML/Graphics/Color.hpp"
 #include <atomic>
 #include <vector>
+
+const std::size_t PatycleSource::maxTrajectoryLength  = 50; // 파티클 궤적 길이
 
 PatycleSource::PatycleSource(float pos_x, float pos_y, float vel_x, float vel_y, sf::Color color){
 	pos.x = pos_x;
@@ -24,7 +26,8 @@ PatycleSource::PatycleSource(float pos_x, float pos_y, float vel_x, float vel_y,
 	ball.setPosition(pos);
 	ball.setFillColor(color);
 	// 파티클 사이즈
-	ball.setRadius(2);
+	ball.setRadius(4);
+	ball.setOrigin(ball.getRadius(), ball.getRadius());
 }
 
 void PatycleSource::render(sf::RenderWindow &window){
@@ -67,4 +70,22 @@ void PatycleSource::update_physics(GravitySource s){
 	pos.x += vel.x;
 	pos.y += vel.y;
 	// 속도를 변경후 위치를 업데이트
+	trajectory.push_back(pos);
+
+    // Limit the trajectory length
+    if (trajectory.size() > maxTrajectoryLength) {
+        trajectory.erase(trajectory.begin());
+    }
+}
+
+void PatycleSource::renderTrajectory(sf::RenderWindow& window) {
+    // Create a vertex array to represent the trajectory
+    sf::VertexArray line(sf::LineStrip, trajectory.size());
+
+    for (std::size_t i = 0; i < trajectory.size(); ++i) {
+        line[i].position = trajectory[i];
+        line[i].color = sf::Color(144, 238, 144, 50);
+    }
+
+    window.draw(line);
 }

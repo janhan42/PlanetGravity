@@ -6,7 +6,7 @@
 /*   By: janhan <janhan@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 14:34:35 by janhan            #+#    #+#             */
-/*   Updated: 2023/12/20 20:35:11 by janhan           ###   ########.fr       */
+/*   Updated: 2023/12/21 02:26:06 by janhan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include "SFML/System/Vector2.hpp"
 #include <SFML/Graphics.hpp>
 #include "GravitySource.hpp"
+#include <vector>
 
 class PatycleSource
 {
@@ -25,10 +26,13 @@ class PatycleSource
 		void	render(sf::RenderWindow& window);
 		void	update_physics(GravitySource s);
 		void	set_color(sf::Color col);
-		void 	setSize();
+		void	setSize();
+		void	renderTrajectory(sf::RenderWindow& window);
 	private:
 		sf::Vector2f pos;
 		sf::Vector2f vel;
 		sf::CircleShape ball;
 		sf::Color	color;
+		std::vector<sf::Vector2f> trajectory;
+		static const std::size_t maxTrajectoryLength;
 };

@@ -6,7 +6,7 @@
 /*   By: janhan <janhan@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 14:20:33 by janhan            #+#    #+#             */
-/*   Updated: 2023/12/20 19:45:36 by janhan           ###   ########.fr       */
+/*   Updated: 2023/12/21 02:48:23 by janhan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ class GravitySource
 		bool isMouseOver(const sf::RenderWindow& window);
 		void isMouseEvent(const sf::RenderWindow& window);
 		bool isDragging;;
+		void drawGravityRange(sf::RenderWindow& window) const;
 	private:
 		sf::Vector2f pos;
 		float strength;

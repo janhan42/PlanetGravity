@@ -6,7 +6,7 @@
 /*   By: janhan <janhan@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 14:16:18 by janhan            #+#    #+#             */
-/*   Updated: 2023/12/21 01:02:13 by janhan           ###   ########.fr       */
+/*   Updated: 2023/12/21 10:23:21 by janhan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,10 @@ int main()
 	std::vector<PatycleSource> particle;
 	UI sizeUpButtom(sf::Vector2f(100,100), sf::Vector2f(50, 50), std::string("size up"), sf::Color::Blue);
 	UI clearButton(sf::Vector2f(160, 100), sf::Vector2f(50, 50), "Clear", sf::Color::Red);
-
+	UI trajectoryButtom(sf::Vector2f(220, 100), sf::Vector2f(50, 50), "traject", sf::Color::Green);
 	bool isDragging0 = false;
 	bool isDragging1 = false;
+	bool isTrajectroty = false;
 	int num_particle = 2000; // 초기 파티클 개수
 
 	gravityPoint.push_back(GravitySource((window.getSize().x / 3.f), (window.getSize().y / 2.f), 7000));
@@ -76,42 +77,30 @@ int main()
 
 			if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && !isDragging0)
 			{
-				if (!sizeUpButtom.isMouseOver(window) && !gravityPoint[0].isMouseOver(window)) // 마우스 Left 클릭으로 새로운 파티클 생성
+				if (!sizeUpButtom.isMouseOver(window) && !gravityPoint[0].isMouseOver(window) && !clearButton.isMouseOver(window) && !isDragging0 && !isDragging1) // 마우스 Left 클릭으로 새로운 파티클 생성
 				{
 					sf::Color randomColor(std::rand() % 256, std::rand() % 256, std::rand() % 256);
 					particle.push_back(PatycleSource(sf::Mouse::getPosition(window).x,sf::Mouse::getPosition(window).y,4.0f,3.0f, randomColor));
 				}
-				if(sizeUpButtom.isMouseOver(window) && !gravityPoint[0].isMouseOver(window)) // 버튼
-				{
+				if(sizeUpButtom.isMouseOver(window) && !gravityPoint[0].isMouseOver(window) && !clearButton.isMouseOver(window)) // 파티클 크기 증가
 					for(int i = 0; i < particle.size(); i++)
-					{
 						particle[i].setSize();
-					}
-				}
-				if (!sizeUpButtom.isMouseOver(window) && gravityPoint[0].isMouseOver(window)) // 중력 포인트 이동
-				{
+
+				if (!sizeUpButtom.isMouseOver(window) && gravityPoint[0].isMouseOver(window) && !clearButton.isMouseOver(window)) // 중력 포인트 이동
 					if (event.type == sf::Event::MouseButtonPressed)
-					{
 						if (event.mouseButton.button == sf::Mouse::Left)
-						{
 							isDragging0 = true;
-						}
-					}
-				}
-				if (!sizeUpButtom.isMouseOver(window) && !gravityPoint[0].isMouseOver(window) && gravityPoint[1].isMouseOver(window))
-				{
+
+				if (!sizeUpButtom.isMouseOver(window) && !gravityPoint[0].isMouseOver(window) && gravityPoint[1].isMouseOver(window)) // 중력 포인트 1 이동
 					if (event.type == sf::Event::MouseButtonPressed)
-					{
 						if (event.mouseButton.button == sf::Mouse::Left)
-						{
 							isDragging1 = true;
-						}
-					}
-				}
-				if (!sizeUpButtom.isMouseOver(window) && !gravityPoint[0].isMouseOver(window) && clearButton.isMouseOver(window))
-				{
+
+				if (!sizeUpButtom.isMouseOver(window) && !gravityPoint[0].isMouseOver(window) && clearButton.isMouseOver(window)) // 파티클 초기화
 					particle.clear();
-				}
+
+				if (!sizeUpButtom.isMouseOver(window) && !gravityPoint[0].isMouseOver(window) && !clearButton.isMouseOver(window) && trajectoryButtom.isMouseOver(window))
+					isTrajectroty = !isTrajectroty;
 			}
 			if (event.type == sf::Event::MouseButtonReleased)
 			{
@@ -125,20 +114,30 @@ int main()
 		window.clear(); // 윈도우 지우기
 		// 파티클 추적 및 업데이트
 		for(int j = 0;  j < particle.size(); j++) // 파티클 렌더
+		{
+			if (isTrajectroty)
+				particle[j].renderTrajectory(window);
 			particle[j].render(window);
+		}
 		// 파티클 업데이트
 		for (int i = 0; i < gravityPoint.size(); i++){
 			for(int j = 0;  j < particle.size(); j++)
+			{
 				particle[j].update_physics(gravityPoint[i]);
+			}
 		}
 		sizeUpButtom.draw(window); // 사이즈 업 버튼 확인
 		clearButton.draw(window);
+		trajectoryButtom.draw(window);
 		if (isDragging0) // 중력 포인트 드래그 드로우
 			gravityPoint[0].isMouseEvent(window);
 		if (isDragging1)
 			gravityPoint[1].isMouseEvent(window);
 		for (int i = 0; i < gravityPoint.size(); i++) // 중력 포인트 드로우
+		{
 			gravityPoint[i].render(window);
+			// gravityPoint[i].drawGravityRange(window);
+		}
 		window.display();
 	}
 	return (0);
