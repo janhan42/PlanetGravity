@@ -23,6 +23,9 @@ Blue Button (Top Left):
 
 Red Button (Top Left):
 >Deletes all existing rotating particles.
+
+Green Button (Top Left):
+>"Toggle the trajectories of particles on and off."
 ___
 한국어
 
@@ -37,6 +40,9 @@ ___
 
 빨간색 버튼 (왼쪽 상단):
 >모든 기존 회전 파티클을 삭제합니다.
+
+초록색 버튼 (왼쪽 상단):
+>파티클들의 궤적을 키고 끌수있습니다.
 
 ## Execute:
 Run the command below.
