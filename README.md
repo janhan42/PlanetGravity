@@ -25,7 +25,7 @@ Red Button (Top Left):
 >Deletes all existing rotating particles.
 
 Green Button (Top Left):
->"Toggle the trajectories of particles on and off."
+>Toggle the trajectories of particles on and off.
 ___
 한국어
 
