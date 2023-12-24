@@ -6,7 +6,7 @@
 /*   By: janhan <janhan@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 14:35:26 by janhan            #+#    #+#             */
-/*   Updated: 2023/12/21 10:14:56 by janhan           ###   ########.fr       */
+/*   Updated: 2023/12/24 18:58:01 by janhan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void PatycleSource::setSize()
 }
 
 //뉴턴의 법칙
-void PatycleSource::update_physics(GravitySource s){
+void PatycleSource::update_physics(GravitySource s, sf::RenderWindow& window){
 	float distance_x = s.get_pos().x - pos.x;
 	//중심 물체(중력 포인트)와 대상 물체 의 x 좌표 차이를 계산
 	float distance_y = s.get_pos().y - pos.y;
@@ -71,6 +71,30 @@ void PatycleSource::update_physics(GravitySource s){
 	pos.y += vel.y;
 	// 속도를 변경후 위치를 업데이트
 	trajectory.push_back(pos);
+
+	const float restitution = 0.6f; // 탄성 개수
+	float radius = ball.getRadius(); // 볼 반지름
+	// window limitter
+	if (pos.x - radius < 0.0f)
+	{
+		pos.x = radius;
+		vel.x = -restitution * vel.x;
+	}
+	else if (pos.x + radius > window.getSize().x)
+	{
+		pos.x = window.getSize().x - radius;
+		vel.x = -restitution * vel.x;
+	}
+	if (pos.y - radius < 0.0f)
+	{
+		pos.y = radius;
+		vel.y = -restitution * vel.y;
+	}
+	else if (pos.y + radius > window.getSize().y)
+	{
+		pos.y = window.getSize().y - radius;
+		vel.y = -restitution * vel.y;
+	}
 
     // Limit the trajectory length
     if (trajectory.size() > maxTrajectoryLength) {

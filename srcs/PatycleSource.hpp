@@ -6,7 +6,7 @@
 /*   By: janhan <janhan@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 14:34:35 by janhan            #+#    #+#             */
-/*   Updated: 2023/12/21 02:26:06 by janhan           ###   ########.fr       */
+/*   Updated: 2023/12/24 18:55:42 by janhan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ class PatycleSource
 	public:
 		PatycleSource(float pos_x, float pos_y, float vel_x, float vel_y, sf::Color color);
 		void	render(sf::RenderWindow& window);
-		void	update_physics(GravitySource s);
+		void	update_physics(GravitySource s, sf::RenderWindow& window);
 		void	set_color(sf::Color col);
 		void	setSize();
 		void	renderTrajectory(sf::RenderWindow& window);

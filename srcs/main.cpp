@@ -6,7 +6,7 @@
 /*   By: janhan <janhan@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 14:16:18 by janhan            #+#    #+#             */
-/*   Updated: 2023/12/21 10:23:21 by janhan           ###   ########.fr       */
+/*   Updated: 2023/12/24 18:56:09 by janhan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ int main()
 		for (int i = 0; i < gravityPoint.size(); i++){
 			for(int j = 0;  j < particle.size(); j++)
 			{
-				particle[j].update_physics(gravityPoint[i]);
+				particle[j].update_physics(gravityPoint[i], window);
 			}
 		}
 		sizeUpButtom.draw(window); // 사이즈 업 버튼 확인
