@@ -74,11 +74,7 @@ int main()
 		{
 			if (event.type == sf::Event::Closed) window.close();
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) window.close();
-			else if (event.type == sf::Event::Resized)
-			{
-				sf::FloatRect visibleArea(0, 0, event.size.width, event.size.height);
-				window.setView(sf::View(visibleArea));
-			}
+
 			if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && !isDragging0)
 			{
 				if (!sizeUpButtom.isMouseOver(window) && !gravityPoint[0].isMouseOver(window) && !clearButton.isMouseOver(window) && !isDragging0 && !isDragging1) // 마우스 Left 클릭으로 새로운 파티클 생성

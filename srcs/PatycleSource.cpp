@@ -6,7 +6,7 @@
 /*   By: janhan <janhan@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 14:35:26 by janhan            #+#    #+#             */
-/*   Updated: 2023/12/24 18:58:01 by janhan           ###   ########.fr       */
+/*   Updated: 2023/12/29 19:06:25 by janhan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ PatycleSource::PatycleSource(float pos_x, float pos_y, float vel_x, float vel_y,
 	ball.setPosition(pos);
 	ball.setFillColor(color);
 	// 파티클 사이즈
-	ball.setRadius(4);
+	ball.setRadius(10);
 	ball.setOrigin(ball.getRadius(), ball.getRadius());
 }
 
